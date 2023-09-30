@@ -1,0 +1,25 @@
+name: Print Pull Request Details
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  print-details:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Print Pull Request Details
+        run: |
+          echo "Hello, world!"
+          echo "Author: ${{ github.event.pull_request.user.login }}"
+          echo "Last Commit: ${{ github.sha }}"
+          echo "Changes between the last commit and the default branch:"
+          git fetch origin master:master
+          git diff --name-status master..${{ github.sha }}
