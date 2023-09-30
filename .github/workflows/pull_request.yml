@@ -1,0 +1,22 @@
+name: Print Pull Request Details
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  print-details:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Print Pull Request Details
+        run: |
+          echo "Autor: ${{ github.event.pull_request.user.login }}"
+          echo "Último Commit: ${{ github.sha }}"
+          echo "Cambios entre el último commit y la rama por defecto:"
+          git diff --name-status ${{ github.event.pull_request.base.sha }}..${{ github.sha }}
