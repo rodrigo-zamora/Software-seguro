@@ -17,6 +17,7 @@ jobs:
 
       - name: Print Pull Request Details
         run: |
+          echo "Hello, world!"
           echo "Author: ${{ github.event.pull_request.user.login }}"
           echo "Last Commit: ${{ github.sha }}"
           echo "Changes between the last commit and the default branch:"
