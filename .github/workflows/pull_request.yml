@@ -5,6 +5,7 @@ on:
     types:
       - opened
       - synchronize
+      - reopened
 
 jobs:
   print-details:
@@ -16,7 +17,8 @@ jobs:
 
       - name: Print Pull Request Details
         run: |
-          echo "Autor: ${{ github.event.pull_request.user.login }}"
-          echo "Último Commit: ${{ github.sha }}"
-          echo "Cambios entre el último commit y la rama por defecto:"
-          git diff --name-status ${{ github.event.pull_request.base.sha }}..${{ github.sha }}
+          echo "Author: ${{ github.event.pull_request.user.login }}"
+          echo "Last Commit: ${{ github.sha }}"
+          echo "Changes between the last commit and the default branch:"
+          git fetch origin master:master
+          git diff --name-status master..${{ github.sha }}
